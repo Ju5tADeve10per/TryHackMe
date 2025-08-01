@@ -1,2 +1,2 @@
 # TryHackMe
-WriteUp
+WriteUps
