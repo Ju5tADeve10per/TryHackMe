@@ -19,7 +19,7 @@ def scan_port(ip, port):
         sock.close()
 
 # Scan multiple ports simultaneously
-def scan_port(ip, ports):
+def scan_ports(ip, ports):
     results = []
     with ThreadPoolExecutor(max_workers=100) as executor:
         futures = [executor.submit(scan_port, ip, port) for port in ports]
