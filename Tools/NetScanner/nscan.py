@@ -25,7 +25,7 @@ def scan_port(ip, port):
 # Scan multiple ports simultaneously
 def scan_ports(ip, ports):
     results = []
-    with ThreadPoolExecturo(max_workers=100) as exectuor:
+    with ThreadPoolExecutor(max_workers=100) as exectuor:
         futures = [executor.submit(scan_port, ip, port) for port in ports]
         for future in futures:
             results.append(future.result())
