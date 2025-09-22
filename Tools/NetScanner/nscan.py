@@ -45,8 +45,8 @@ def main():
     print(f"Scanning {args.ip} ...")
     results = scan_ports(args.ip, ports)
     for port, is_open in results:
-        status = "open" if is_open else "closed"
-        print(f"Port {port}: {status}")
+        if is_open:
+            print(f"Port {port}: open")
 
 if __name__ == "__main__":
     main()
