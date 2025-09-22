@@ -3,20 +3,24 @@ import socket
 import argparse
 from concurrent.futures import ThreadPoolExecutor
 
-# Default well-known ports
 WELL_KNOWN_PORTS = list(range(0, 1024))
 
-# Scan Ports
+# Scan a port
 def scan_port(ip, port):
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.settimeout(0.5)
     try:
         sock.connect((ip, port))
-        return port, True
+        try:
+            service = socket.getservbyport(port, "tcp") # why tcp?
+        except OSError:
+            service = "unknown"
+        return port, True, service
     except:
-        return port, False
+        return port, False, None
     finally:
         sock.close()
+
 
 # Scan multiple ports simultaneously
 def scan_ports(ip, ports):
@@ -31,7 +35,7 @@ def scan_ports(ip, ports):
 def main():
     parser = argparse.ArgumentParser(description="ns - simple network scanner")
     parser.add_argument("ip", help="Target IP address")
-    parser.add_argument("--all", action="store_true", help="Scan all ports (0 - 65535)")
+    parser.add_argument("--all", action="store_true", help="Scan all ports (0-65535)")
     parser.add_argument("--ports", help="Comma separated list of ports to scan")
     args = parser.parse_args()
 
@@ -44,9 +48,11 @@ def main():
     
     print(f"Scanning {args.ip} ...")
     results = scan_ports(args.ip, ports)
-    for port, is_open in results:
-        if is_open:
-            print(f"Port {port}: open")
 
+    print(f"\nOpen ports on {args.ip}:")
+    for port, is_open, service in results:
+        if is_open:
+            print(f"{port}: {service} (tcp)")
+            
 if __name__ == "__main__":
     main()
