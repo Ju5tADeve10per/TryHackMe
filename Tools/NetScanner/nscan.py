@@ -61,7 +61,7 @@ def main():
 
     # Port Table
     print(f"{'PORT':<8} {'STATE':<6} {'SERVICE'}")
-    for port, is_open, service in sorted(openports):
+    for port, is_open, service in sorted(open_ports):
         print(f"{port}/tcp {'open':<6} {service}")
 
     # Footer
