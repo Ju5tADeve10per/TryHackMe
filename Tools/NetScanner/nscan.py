@@ -52,7 +52,7 @@ def grab_banner(ip, port, timeout=0.5):
         except:
             pass
 
-def scan_port(ip, port, timeout=0.5):
+def scan_port(ip, port, get_service=False, timeout=0.5):
     """Scan a single port and optionally grab a banner."""
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.settimeout(timeout)
@@ -63,17 +63,19 @@ def scan_port(ip, port, timeout=0.5):
         except OSError:
             service = "unknown"
         
-        banner = grab_banner(ip, port, timeout)
+        banner = None
+        if get_service:
+            banner = grab_banner(ip, port, timeout)
         return port, True, service, banner
     except:
         return port, False, None, None
     finally:
         sock.close()
 
-def scan_ports(ip, ports):
+def scan_ports(ip, ports, get_service=False):
     results = []
     with ThreadPoolExecutor(max_workers=100) as executor:
-        futures = [executor.submit(scan_port, ip, port) for port in ports]
+        futures = [executor.submit(scan_port, ip, port, get_service) for port in ports]
         for future in futures:
             results.append(future.result())
     return results
