@@ -83,6 +83,7 @@ def main():
     parser.add_argument("ip", help="Target IP address")
     parser.add_argument("--all", action="store_true", help="Scan all ports (0-65535)")
     parser.add_argument("--ports", help="Comma separated list of ports to scan")
+    parser.add_argument("--service", action="store_true", help="Grab banners to identify service/version")
     args = parser.parse_args()
 
     if args.all:
@@ -93,7 +94,7 @@ def main():
         ports = WELL_KNOWN_PORTS
     
     start_time = time.time()
-    results = scan_ports(args.ip, ports)
+    results = scan_ports(args.ip, ports, get_service=args.service)
     end_time = time.time()
     elapsed = end_time - start_time
 
@@ -106,9 +107,14 @@ def main():
     print(f"Not shown: {closed_count} closed tcp ports (conn-refused)\n")
 
     # Port Table
-    print(f"{'PORT':<8} {'STATE':<6} {'SERVICE':<12} {'BANNER'}")
-    for port, is_open, service, banner in sorted(open_ports):
-        print(f"{port}/tcp {'open':<6} {service:<12} {banner if banner else ''}")
+    if args.service:
+        print(f"{'PORT':<8} {'STATE':<6} {'SERVICE':<12} {'VERSION'}")
+        for port, is_open, service, banner in sorted(open_ports):
+            print(f"{port}/tcp {'open':<6} {service:<12} {banner if banner else ''}")
+    else:
+        print(f"{'PORT':<8} {'STATE':<6} {'SERVICE'}")
+        for port, is_open, service, _ in sorted(open_ports):
+            print(f"{port}/tcp {'open':<6} {service}")
     
     # Footer
     print(f"\nScan done: 1 IP address (1 host up) scanned in {elapsed:.2f} seconds")
