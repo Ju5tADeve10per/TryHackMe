@@ -110,11 +110,11 @@ def main():
 
     # Port Table
     if args.service:
-        print(f"{'PORT':<8} {'STATE':<6} {'SERVICE':<12} {'VERSION'}")
+        print(f"{'PORT':<6} {'STATE':<8} {'SERVICE':<14} {'VERSION'}")
         for port, is_open, service, banner in sorted(open_ports):
-            print(f"{port}/tcp {'open':<6} {service:<12} {banner if banner else ''}")
+            print(f"{port}/tcp {'open':<8} {service:<14} {banner if banner else ''}")
     else:
-        print(f"{'PORT':<8} {'STATE':<6} {'SERVICE'}")
+        print(f"{'PORT':<6} {'STATE':<6} {'SERVICE'}")
         for port, is_open, service, _ in sorted(open_ports):
             print(f"{port}/tcp {'open':<6} {service}")
     
