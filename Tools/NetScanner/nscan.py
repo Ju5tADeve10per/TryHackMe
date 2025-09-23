@@ -97,7 +97,7 @@ def main():
     end_time = time.time()
     elapsed = end_time - start_time
 
-    open_oprts = [r for r in results if r[1]]
+    open_ports = [r for r in results if r[1]]
     closed_count = len(results) - len(open_ports)
 
     # Header
