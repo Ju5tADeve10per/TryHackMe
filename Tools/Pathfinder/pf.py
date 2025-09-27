@@ -77,7 +77,7 @@ async def worker(base_url, paths, out_file):
     async with aiohttp.ClientSession() as session:
         tasks = [fetch(session, urljoin(base_url, p)) for p in paths]
         with open(out_file, "w") as out_f:
-            for coro in asyncio.as_copleted(tasks):
+            for coro in asyncio.as_completed(tasks):
                 res = await coro
                 score, reason = is_interesting(res["url"], res.get("status"), res.get("content_length") or 0)
                 status = res.get("status")
