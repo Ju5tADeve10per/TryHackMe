@@ -9,6 +9,9 @@ import socket
 import argparse
 from concurrent.futures import ThreadPoolExecutor
 import time
+import sys
+if sys.version_info < (3, 8):
+    sys.exit("Please run with Python 3.8+")
 
 # List of well-knwon ports (0 - 1023)
 WELL_KNOWN_PORTS = list(range(0, 1024))
