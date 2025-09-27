@@ -1,0 +1,48 @@
+# -------------------------
+# Python virtual environment
+# -------------------------
+.venv/
+venv/
+env/
+
+# -------------------------
+# Python cache & compiled files
+# -------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+
+# -------------------------
+# Distribution / packaging
+# -------------------------
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# -------------------------
+# IDE / editor settings
+# -------------------------
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# -------------------------
+# Logs / temp
+# -------------------------
+*.log
+*.tmp
+*.swp
+
+# -------------------------
+# OS files
+# -------------------------
+.DS_Store
+Thumbs.db
+
+# -------------------------
+# Optional: outputs of Pathfinder scans
+# -------------------------
+pf_results.jsonl
+
