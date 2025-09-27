@@ -47,7 +47,11 @@ def is_interesting(url, status, content_length):
     for p in DEFAULT_INTERESTING:
         if url.endswith(p) or (p.endswith("/") and url.endswith(p)):
             return 100, f"important-path {p}"
-        if status == 200 and content_length > 0:
+    
+    # Now handle status checks safely (only compare numbers when status is int)
+    # status may be an int (e.g. 200) or a str like "timeout"/"error"
+    if isinstance(status, int):
+        if status == 200 and (content_length or 0) > 0:
             return 50, f"200 content_length={content_length}"
         if status in (301, 302):
             return 40, "redirect"
@@ -57,7 +61,8 @@ def is_interesting(url, status, content_length):
             return 25, "forbidden"
         if status >= 500:
             return 10, f"server-error {status}"
-        return 0, ""
+    # Non-numeric statuses (timouts/conn errors) are low-interest
+    return 0, ""
 
 async def fetch(session, url):
     try:
