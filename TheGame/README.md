@@ -26,21 +26,21 @@ After unzipping, I obtained Tetris.exe.
 Since the file has an .exe extension, I didn’t want to take any risk running it directly.
 I used the file command to check the actual type of the file:
 
-    ```file Tetris.exe```
+    file Tetris.exe
 
 Result:
 
-    ```Tetris.exe: PE32+ executable for MS Windows 5.02 (GUI), x86-64 (stripped to external PDB), 13 sections```
+    Tetris.exe: PE32+ executable for MS Windows 5.02 (GUI), x86-64 (stripped to external PDB), 13 sections
 
 I don’t fully understand all the details, but it clearly indicates that it is an executable file.
 
 To avoid any risk, I decided to use the strings command to retrieve human-readable text from the binary:
 
-    ```strings Tetris.exe```
+    strings Tetris.exe
 
 Since there were many lines, I filtered the output using grep to find the flag:
 
-    ```strings Tetris.exe | grep 'FLAG'```
+    strings Tetris.exe | grep 'FLAG'
 
 Note: I used single quotes around FLAG to ensure it is treated as a literal string, not a shell variable.
 
@@ -50,7 +50,7 @@ Note: I used single quotes around FLAG to ensure it is treated as a literal stri
 
 Finally, the flag appeared:
 
-    ```FLAG{example_flag_here}```
+    FLAG{example_flag_here}
 
 Well done!
 
