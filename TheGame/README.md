@@ -15,7 +15,7 @@
 I downloaded the zip file containing Tetris.exe.
 To unzip the file, I used:
 
-    ```unzip XXX.zip```
+    unzip XXX.zip
 
 After unzipping, I obtained Tetris.exe.
 
