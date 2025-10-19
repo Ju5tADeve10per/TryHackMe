@@ -9,7 +9,6 @@ flag = open('flag.txt','r').read().strip()
 def send_message(server, message):
     enc = message.encode()
     server.send(enc)
-
 def setup(server, key):
     flag = 'THM{thisisafakeflag}' 
     xored = ""
