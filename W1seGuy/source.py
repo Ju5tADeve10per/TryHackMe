@@ -6,11 +6,11 @@ import string
 
 flag = open('flag.txt','r').read().strip()
 
-def send_message(server, message):
+def send_message(server, message): # messageを送ってる関数
     enc = message.encode()
     server.send(enc)
-def setup(server, key):
-    flag = 'THM{thisisafakeflag}' 
+def setup(server, key): # ここでxorのエンコードが行われてる
+    flag = 'THM{thisisafakeflag}' # 実際はサーバ側にフラグがハードコーディングされてる。
     xored = ""
 
     for i in range(0,len(flag)):
@@ -19,10 +19,10 @@ def setup(server, key):
     hex_encoded = xored.encode().hex()
     return hex_encoded
 
-def start(server):
+def start(server): # 管理室
     res = ''.join(random.choices(string.ascii_letters + string.digits, k=5))
     key = str(res)
-    hex_encoded = setup(server, key)
+    hex_encoded = setup(server, key) # keyは5文字固定な気がする。
     send_message(server, "This XOR encoded text has flag 1: " + hex_encoded + "\n")
     
     send_message(server,"What is the encryption key? ")
