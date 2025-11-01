@@ -1,8 +1,3 @@
-xored_text = input("Input xored-text: ")
-key_parts = xored_text[0:4] + xored_text[-1]
-print("Retrieved key_parts: ", key_parts)
-flag_parts = b"THM{}".hex()
-key = ""
-for i in range(len(key_parts)):
-    key += chr(ord(key_parts[i]) ^ ord(flag_parts[i]))
-print("Key:", key)
+xored_hextext = input("Input xored-hextext: ")
+target = bytes.fromhex(xored_hextext[0:8] + xored[-2:])
+key_seed = b"THM{}".hex()
